@@ -3,15 +3,16 @@ import { useParams } from "react-router-dom";
 import Navbar from "./../components/Navbar";
 import { assets, blog_data, comments_data } from "./../assets/assets";
 import Moment from "moment";
+import Footer from './../components/Footer';
+import Loader from './../components/Loader';
 
 const Blog = () => {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [comments, setComments] = useState([]);
 
-  const [name, setName] = useState('');
-  const [content, setContent] = useState('');
-
+  const [name, setName] = useState("");
+  const [content, setContent] = useState("");
 
   const fetchBlogData = async (item) => {
     const data = blog_data.find((item) => item._id === id);
@@ -24,8 +25,7 @@ const Blog = () => {
 
   const addComment = async (e) => {
     e.preventDefault();
-
-  }
+  };
 
   useEffect(() => {
     fetchBlogData();
@@ -84,8 +84,13 @@ const Blog = () => {
             {/* Add comment Section */}
             <div className="max-w-3xl mx-auto">
               <p className="font-semibold mb-4">Add Your comment</p>
-              <form onSubmit={addComment} className="flex flex-col items-start gap-4 max-w-lg">
-                <input onChange={(e) => setContent(e.target.value)} value={content}
+              <form
+                onSubmit={addComment}
+                className="flex flex-col items-start gap-4 max-w-lg"
+              >
+                <input
+                  onChange={(e) => setContent(e.target.value)}
+                  value={content}
                   type="text"
                   placeholder="Name"
                   required
@@ -107,10 +112,22 @@ const Blog = () => {
                 </button>
               </form>
             </div>
+            {/* Share Buttons */}
+            <div className="my-24 max-w-3xl mx-auto">
+              <p className="font-semibold my-4">
+                Share this article on social media{" "}
+              </p>
+              <div className="flex">
+                <img src={assets.facebook_icon} alt="" width={50} />
+                <img src={assets.twitter_icon} alt="" width={50} />
+                <img src={assets.googleplus_icon} alt="" width={50} />
+              </div>
+            </div>
           </div>
+          <Footer />
         </div>
       ) : (
-        <div>Loading...</div>
+        <Loader />
       )}
     </>
   );
