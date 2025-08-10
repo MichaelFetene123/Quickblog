@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { blog_data } from "./../assets/assets";
 import Navbar from "./../components/Navbar";
-import { assets } from "./../assets/assets";
+import { assets, blog_data, comments_data } from "./../assets/assets";
 import Moment from "moment";
 
 const Blog = () => {
   const { id } = useParams();
   const [data, setData] = useState(null);
+  const [comments, setComments] = useState([]);
 
   const fetchBlogData = async (item) => {
     const data = blog_data.find((item) => item._id === id);
     setData(data);
   };
 
+  const fetchComments = async () => {
+    setComments(comments_data);
+  };
+
   useEffect(() => {
     fetchBlogData();
+    fetchComments();
   }, []);
 
   return (
@@ -45,9 +50,28 @@ const Blog = () => {
             <div
               className="rich-text max-w-3xl mx-auto"
               dangerouslySetInnerHTML={{ __html: data.description }}
-            > </div>
+            ></div>
             {/* {comments section} */}
-            <div className="mt-14 mb-10 max-w-3xl mx-auto"></div>
+            <div className="mt-14 mb-10 max-w-3xl mx-auto">
+              <p>comments ({comments.length})</p>
+              <div className="flex flex-col gap-4  ">
+                {comments.map((item, index) => (
+                  <div
+                    key={index}
+                    className="relative bg-primary/2 border border-primary/5 max-w-xl rounded p-4 text-gray-600"
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <img className="w-6" src={assets.user_icon} alt="" />
+                      <p className="font-medium">{item.name}</p>
+                    </div>
+                    <p className="text-sm max-w-md ml-8">{item.content}</p>
+                    <div className="absolute right-4 bottom-3 flex items-center gap-2 text-xs">
+                      {Moment(item.createdAt).fromNow()}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       ) : (
