@@ -9,6 +9,10 @@ const Blog = () => {
   const [data, setData] = useState(null);
   const [comments, setComments] = useState([]);
 
+  const [name, setName] = useState('');
+  const [content, setContent] = useState('');
+
+
   const fetchBlogData = async (item) => {
     const data = blog_data.find((item) => item._id === id);
     setData(data);
@@ -17,6 +21,11 @@ const Blog = () => {
   const fetchComments = async () => {
     setComments(comments_data);
   };
+
+  const addComment = async (e) => {
+    e.preventDefault();
+
+  }
 
   useEffect(() => {
     fetchBlogData();
@@ -53,7 +62,7 @@ const Blog = () => {
             ></div>
             {/* {comments section} */}
             <div className="mt-14 mb-10 max-w-3xl mx-auto">
-              <p>comments ({comments.length})</p>
+              <p className="font-semibold mb-4">comments ({comments.length})</p>
               <div className="flex flex-col gap-4  ">
                 {comments.map((item, index) => (
                   <div
@@ -71,6 +80,32 @@ const Blog = () => {
                   </div>
                 ))}
               </div>
+            </div>
+            {/* Add comment Section */}
+            <div className="max-w-3xl mx-auto">
+              <p className="font-semibold mb-4">Add Your comment</p>
+              <form onSubmit={addComment} className="flex flex-col items-start gap-4 max-w-lg">
+                <input onChange={(e) => setContent(e.target.value)} value={content}
+                  type="text"
+                  placeholder="Name"
+                  required
+                  className="w-full p-2 border border-gray-300 rounded outline-none"
+                />
+
+                <textarea
+                  name="comment"
+                  id=""
+                  placeholder="Write your comment here..."
+                  required
+                  className="w-full p-2 border border-gray-300 rounded outline-none h-48"
+                ></textarea>
+                <button
+                  type="submit"
+                  className="bg-primary text-white rounded p-2 px-8 hover:scale-102 transition-all"
+                >
+                  Submit
+                </button>
+              </form>
             </div>
           </div>
         </div>
