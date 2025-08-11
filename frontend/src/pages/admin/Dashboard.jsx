@@ -54,8 +54,12 @@ const Dashboard = () => {
         </div>
       </div>
 
-     
-
+      <div>
+        <div className="flex items-center gap-3 m-4 mt-6 text-gray-600">
+          <img src={assets.dashboard_icon_4} alt="" />
+          <p>Latest Blogs</p>
+        </div>
+      </div>
     </div>
   );
 };
