@@ -7,6 +7,7 @@ import Dashboard from './pages/admin/Dashboard';
 import Comments from './pages/admin/Comments';
 import ListBlog from './pages/admin/ListBlog';
 import AddBlog from './pages/admin/AddBlog';
+import Login from './components/admin/Login';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="listblog" element={<ListBlog />} />
           <Route path="comments" element={<Comments />} />
         </Route>
+        <Route path='/admin/login' element={<Login />} />
       </Routes>
     </div>
   );
