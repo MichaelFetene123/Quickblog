@@ -91,6 +91,11 @@ const AddBlog = () => {
             </option>
           ))}
         </select>
+
+        <div className="flex gap-2 mt-4">
+          <p>Publish Now</p>
+          <input type="checkbox" checked={isPublished} onChange={(e) => setIsPublished(e.target.checked)}  className="scale-125 cursor-pointer" />
+        </div>
       </div>
     </form>
   );
