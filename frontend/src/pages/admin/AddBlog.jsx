@@ -1,17 +1,20 @@
-import React,{useState} from "react";
-import { assets } from './../../assets/assets';
+import React, { useState } from "react";
+import { assets } from "./../../assets/assets";
 
 const AddBlog = () => {
+  const [image, setImage] = useState(false);
+  const [title, setTitle] = useState("");
+  const [subTitle, setSubTitle] = useState("");
+  const [category, setCategory] = useState("startup");
+  const [isPublished, setIsPublished] = useState(false);
 
-  const [image, setImage] = useState(false)
-  const [title, setTitle] = useState('')
-  const [subTitle, setSubTitle] = useState('')
-  const [category, setCategory] = useState('startup')
-  const [isPublished, setIsPublished] = useState(false)
+  const generateContent = async (e) => {
+    e.preventDefault();
+  };
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-  }
+  };
   return (
     <form
       onSubmit={onSubmitHandler}
@@ -53,8 +56,12 @@ const AddBlog = () => {
           value={subTitle}
         />
         {/* --------- */}
-        <p className="mt-4">Blog  Description</p>
-        <div clas></div>
+        <p className="mt-4">Blog Description</p>
+        <div className="max-w-lg h-74 pb-16 sm:pb-10 pt-2 relative">
+          <button type="button" onClick={generateContent} className="absolute bottom-1 right-2 ml-2 text-xs text-white bg-black/70  px-4 py-1.5 rounded hover:underline cursor-pointer">
+            Generate with AI
+          </button>
+        </div>
       </div>
     </form>
   );
