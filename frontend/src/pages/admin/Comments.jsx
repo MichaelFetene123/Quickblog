@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { comments_data } from "./../../assets/assets";
+import CommentTableItem from './../../components/admin/CommentTableItem';
 const Comments = () => {
   const [comments, setComments] = useState([]);
   const [filter, setFilter] = useState("Not Approved");
@@ -39,9 +40,17 @@ const Comments = () => {
         <table className="w-full text-sm text-gray-500">
           <thead className="text-xs text-gray-700 text-left uppercase">
             <tr>
-              <th scope="col" className="px-6 py-3">Blog Title & Comment</th>
+              <th scope="col" className="px-6 py-3">
+                Blog Title & Comment
+              </th>
+              <th scope="col" className="px-6 py-3 ">
+                Action
+              </th>
             </tr>
           </thead>
+          <tbody>
+          
+          </tbody>
         </table>
       </div>
     </div>
