@@ -3,6 +3,7 @@ import 'dotenv/config'
 import cors from 'cors';
 import  connectDB  from './configs/db.js';
 import AdminRouter from './routes/adminRoutes.js';
+import blogRouter from './routes/blogRoutes.js';
 
 const app = express();
 
@@ -21,6 +22,8 @@ app.get("/", (req, res) => {
 })
 
 app.use('/api/admin', AdminRouter)
+app.use("/api/blog", blogRouter);
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
