@@ -10,3 +10,5 @@ const auth = (req, res, next) => {
         res.json({ success: false, message: "Unauthorized" });
     }
 }
+
+export default auth;
