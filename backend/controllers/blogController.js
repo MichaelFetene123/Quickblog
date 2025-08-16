@@ -33,13 +33,13 @@ export const addBlog = async (req, res) => {
       ],
     });
       
-      const image = optimaizedImageUrl 
+      const Image = optimaizedImageUrl 
 
-      await Blog.create({ title, subTitle, description, category, image, isPublished });
-      
+      await Blog.create({ title, subTitle, description, category, Image, isPublished });
+
       res.json({ success: true, message: "Blog added successfully" });
   } catch (error) {
-      res.json({ success: false, message: "Blog added successfully" });
+      res.json({ success: false, message: error.message });
       
   }
 };
