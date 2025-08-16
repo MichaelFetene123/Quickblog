@@ -6,4 +6,4 @@ const AdminRouter = express.Router()
 
 AdminRouter.post('/login', adminLogin)
 
-export default AdminRouter
+export default AdminRouter;

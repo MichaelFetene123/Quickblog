@@ -4,12 +4,12 @@ import Blog from './../models/Blog.js';
 
 export const addBlog = async (req, res) => {
   try {
-    const { title, subTitle, description, category, image, isPublished } =
-      JSON.parse(req.body.Blog);
+    const { title, subTitle, description, category, isPublished } =
+      JSON.parse(req.body.blog);
     const imageFile = req.file;
 
     // Check if all fields are present
-    if (!title || !description || !category || !imageFile || isPublished) {
+    if (!title || !description || !category || !imageFile) {
       return res
         .status(400)
         .json({ success: false, message: "Missing required fields" });
@@ -33,9 +33,9 @@ export const addBlog = async (req, res) => {
       ],
     });
       
-      const Image = optimaizedImageUrl 
+      const image = optimaizedImageUrl 
 
-      await Blog.create({ title, subTitle, description, category, Image, isPublished });
+      await Blog.create({ title, subTitle, description, category, image, isPublished });
 
       res.json({ success: true, message: "Blog added successfully" });
   } catch (error) {
