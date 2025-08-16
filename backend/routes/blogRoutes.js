@@ -4,6 +4,6 @@ import upload from './../middleware/multer.js';
 
 const addRouter= express.Router();
 
-addRouter.post("/add", upload,addBlog);
+addRouter.post("/add", upload.single('image'),addBlog);
 
 export default addRouter;
