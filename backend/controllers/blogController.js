@@ -54,7 +54,7 @@ export const addBlog = async (req, res) => {
 // Get all published blogs
 export const getAllBlogs = async (req, res) => {
   try {
-    const blogs = await BlogModel.find({ isPublished: true });
+    const blogs = await BlogModel.find();
 
     res.json({ success: true, blogs });
   } catch (error) {
