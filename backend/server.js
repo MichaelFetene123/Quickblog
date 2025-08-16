@@ -2,6 +2,7 @@ import express from 'express';
 import 'dotenv/config'
 import cors from 'cors';
 import  connectDB  from './configs/db.js';
+import AdminRouter from './routes/adminRoutes.js';
 
 const app = express();
 
@@ -18,6 +19,8 @@ const PORT = process.env.PORT || 3000;
 app.get("/", (req, res) => {
     res.send("API is working!");
 })
+
+app.use('/api/admin', AdminRouter)
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
