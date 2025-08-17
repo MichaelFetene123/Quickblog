@@ -191,3 +191,11 @@ export const deleteCommentsById = async (req, res) => {
   } catch (error) {}
 };
 //--------------------------------------------------------------------------
+
+export const approveCommentsById = async (req, res) => {
+  try {
+    const { id } = req.body;
+    await CommentModel.findByIdAndUpdate(id, { isApproved: true });
+    res.json({ success: true, message: "Comment approved successfully" });
+  } catch (error) {}
+};
