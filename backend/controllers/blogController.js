@@ -90,6 +90,10 @@ export const deleteBlogById = async (req, res) => {
         .status(404)
         .json({ success: false, message: "Blog not found" });
     }
+    //Delate all comments associated with the blog
+     
+      await CommentModel.deleteMany({ blog: id });
+
     res.json({ success: true, message: "Blog deleted successfully" });
   } catch (error) {
     res.json({ success: false, message: error.message });
@@ -188,7 +192,10 @@ export const deleteCommentsById = async (req, res) => {
     const { id } = req.body;
     await CommentModel.findByIdAndDelete(id);
     res.json({ success: true, message: "Comment deleted successfully" });
-  } catch (error) {}
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+
+  }
 };
 //--------------------------------------------------------------------------
 
@@ -196,6 +203,9 @@ export const approveCommentsById = async (req, res) => {
   try {
     const { id } = req.body;
     await CommentModel.findByIdAndUpdate(id, { isApproved: true });
-    res.json({ success: true, message: "Comment approved successfully" });
-  } catch (error) {}
+    res.json({ success: true, message: "Comment approved  successfully" });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+
+  }
 };
