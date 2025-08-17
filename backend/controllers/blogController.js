@@ -91,8 +91,8 @@ export const deleteBlogById = async (req, res) => {
         .json({ success: false, message: "Blog not found" });
     }
     //Delate all comments associated with the blog
-     
-      await CommentModel.deleteMany({ blog: id });
+
+    await CommentModel.deleteMany({ blog: id });
 
     res.json({ success: true, message: "Blog deleted successfully" });
   } catch (error) {
@@ -103,109 +103,41 @@ export const deleteBlogById = async (req, res) => {
 //--------------------------------------------------------------------------
 export const togglePublish = async (req, res) => {
   try {
-    const { id } = req.body
+    const { id } = req.body;
     const blog = await BlogModel.findById(id);
     blog.isPublished = !blog.isPublished;
     await blog.save();
-    res.json({ success: true, message: "Blog publication status updated" });  
+    res.json({ success: true, message: "Blog publication status updated" });
   } catch (error) {
     res.json({ success: false, message: error.message });
-    
   }
-}
+};
 
 //--------------------------------------------------------------------------
 
-export const addComment = async (req, res) => { 
+export const addComment = async (req, res) => {
   try {
-    const { blog, name, content } = req.body
+    const { blog, name, content } = req.body;
     await CommentModel.create({ blog, name, content });
     res.json({ success: true, message: "Comment added for review" });
   } catch (error) {
     res.json({ success: false, message: error.message });
-    
   }
-}
+};
 
 //--------------------------------------------------------------------------
 
-export const getBlogComments = async (req, res) => { 
+export const getBlogComments = async (req, res) => {
   try {
     const { blogId } = req.body;
-    const comments = await CommentModel.find({ blog: blogId, isApproved: true }).sort({ createdAt: -1 });
+    const comments = await CommentModel.find({
+      blog: blogId,
+      isApproved: true,
+    }).sort({ createdAt: -1 });
     res.json({ success: true, comments });
   } catch (error) {
     res.json({ success: false, message: error.message });
-    
-  }
-}
-
-//--------------------------------------------------------------------------
-
-export const getAllBlogsAdmin = async (req, res) => {
-  try {
-    const blogs = await BlogModel.find({}).sort({ createdAt: -1 });
-    res.json({ success: true, blogs });
-  } catch (error) {
-    res.json({ success: false, message: error.message });
-    
-  }
-}
-//--------------------------------------------------------------------------
-
-export const getAllComments = async (req, res) => { 
-  try {
-    const comments = await CommentModel.find({}).populate("blog").sort({ createdAt: -1 });
-    res.json({ success: true, comments });
-  } catch (error) {
-    res.json({ success: false, message: error.message });
-    
-  }
-}
-
-//--------------------------------------------------------------------------
-
-export const getDashboard = async (req, res) => { 
-  try {
-    const recentBlogs = await BlogModel.find({}).sort({ createdAt: -1 }).limit(5)
-    const blogs = await BlogModel.countDocuments();
-    const comments = await CommentModel.countDocuments();
-    const drafts = await BlogModel.countDocuments({ isPublished: false });
-
-    const dashboardData = {
-      recentBlogs,
-      blogs,
-      comments,
-      drafts
-    };
-    res.json({ success: true, dashboardData });
-
-  } catch (error) {
-    res.json({ success: false, message: error.message });
-    
-  }
-}
-//--------------------------------------------------------------------------
-
-export const deleteCommentById = async (req, res) => {
-  try {
-    const { id } = req.body;
-    await CommentModel.findByIdAndDelete(id);
-    res.json({ success: true, message: "Comment deleted successfully" });
-  } catch (error) {
-    res.json({ success: false, message: error.message });
-
   }
 };
+
 //--------------------------------------------------------------------------
-
-export const approveCommentById = async (req, res) => {
-  try {
-    const { id } = req.body;
-    await CommentModel.findByIdAndUpdate(id, { isApproved: true });
-    res.json({ success: true, message: "Comment approved  successfully" });
-  } catch (error) {
-    res.json({ success: false, message: error.message });
-
-  }
-};
