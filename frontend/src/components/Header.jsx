@@ -10,6 +10,11 @@ const Header = () => {
     e.preventDefault();
     setInput(inputRef.current.value)
   }
+
+  const onClear = () => { 
+    setInput("");
+    inputRef.current.value = "";
+  }
   return (
     <div className="mx-8 sm:mx-16 xl:mx-24 relative">
       <div className="text-center mt-20 mb-8">
@@ -27,8 +32,12 @@ const Header = () => {
           write without filters. whether it's one word or a thousand, your story
           starts here.
         </p>
-        <form onSubmit={onSubmitHandler} className="flex justify-between max-w-lg max-sm:scale-75 m-auto border border-gray-300 bg-white rounded overflow-hidden">
-          <input ref={inputRef}
+        <form
+          onSubmit={onSubmitHandler}
+          className="flex justify-between max-w-lg max-sm:scale-75 m-auto border border-gray-300 bg-white rounded overflow-hidden"
+        >
+          <input
+            ref={inputRef}
             type="text"
             placeholder="Search for blogs"
             required
@@ -41,10 +50,13 @@ const Header = () => {
             Search
           </button>
         </form>
-
       </div>
       <div className="text-center">
-        <button className="border font-light text-xs py-1 px-3 rounded-sm shadow-custom-sm cursor-pointer">Clear Search</button>
+        {input && (
+          <button onClick={onClear} className="border font-light text-xs py-1 px-3 rounded-sm shadow-custom-sm cursor-pointer">
+            Clear Search
+          </button>
+        )}
       </div>
       <img
         src={assets.gradientBackground}
