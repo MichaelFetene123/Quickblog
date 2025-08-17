@@ -187,7 +187,7 @@ export const getDashboard = async (req, res) => {
 }
 //--------------------------------------------------------------------------
 
-export const deleteCommentsById = async (req, res) => {
+export const deleteCommentById = async (req, res) => {
   try {
     const { id } = req.body;
     await CommentModel.findByIdAndDelete(id);
@@ -199,7 +199,7 @@ export const deleteCommentsById = async (req, res) => {
 };
 //--------------------------------------------------------------------------
 
-export const approveCommentsById = async (req, res) => {
+export const approveCommentById = async (req, res) => {
   try {
     const { id } = req.body;
     await CommentModel.findByIdAndUpdate(id, { isApproved: true });
