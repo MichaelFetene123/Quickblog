@@ -135,3 +135,15 @@ export const getBlogComments = async (req, res) => {
     
   }
 }
+
+//--------------------------------------------------------------------------
+
+export const getAllBlogsAdmin = async (req, res) => {
+  try {
+    const blogs = await BlogModel.find({}).sort({ createdAt: -1 });
+    res.json({ success: true, blogs });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+    
+  }
+}
