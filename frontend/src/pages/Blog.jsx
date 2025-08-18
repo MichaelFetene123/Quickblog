@@ -46,7 +46,22 @@ const {axios} = useAppContext();
 
   const addComment = async (e) => {
     e.preventDefault();
-
+   try {
+     const { data } = await axios.post(`/api/blog/add-comment`, {
+       blog: id,
+       name,
+       content,
+     });
+     if (data.success) {
+       toast.success(data.message);
+       setName("");
+       setContent("");
+     } else {
+       toast.error(data.message);
+     }
+   } catch (error) {
+     toast.error(error.message);
+   }
   };
 
   useEffect(() => {
@@ -111,8 +126,8 @@ const {axios} = useAppContext();
                 className="flex flex-col items-start gap-4 max-w-lg"
               >
                 <input
-                  onChange={(e) => setContent(e.target.value)}
-                  value={content}
+                  onChange={(e) => setName(e.target.value)}
+                  value={name}
                   type="text"
                   placeholder="Name"
                   required
