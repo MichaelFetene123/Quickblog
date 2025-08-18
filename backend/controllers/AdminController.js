@@ -1,4 +1,6 @@
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
+import BlogModel from "../models/Blog.js";
+import CommentModel from "../models/comment.js";
 
 export const adminLogin = async (req, res) => {
   try {
@@ -6,16 +8,15 @@ export const adminLogin = async (req, res) => {
     if (
       email !== process.env.ADMIN_EMAIL ||
       password !== process.env.ADMIN_PASSWORD
-    ) {return res.json({success: false ,message:'Invalid Credentials'})
-      }
-      const token = jwt.sign({ email }, process.env.JWT_SECRET)
-      res.json({ success: true, token });
+    ) {
+      return res.json({ success: false, message: "Invalid Credentials" });
+    }
+    const token = jwt.sign({ email }, process.env.JWT_SECRET);
+    res.json({ success: true, token });
   } catch (e) {
-      res.json({ success: false, message: e.message });
+    res.json({ success: false, message: e.message });
   }
 };
-
-
 
 export const getAllBlogsAdmin = async (req, res) => {
   try {
