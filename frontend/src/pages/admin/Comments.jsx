@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { comments_data } from "./../../assets/assets";
 import CommentTableItem from './../../components/admin/CommentTableItem';
 import { useAppContext } from "../../context/AppContext.jsx";
+import { toast } from 'react-hot-toast';
 
 const Comments = () => {
   const [comments, setComments] = useState([]);
@@ -11,6 +12,7 @@ const Comments = () => {
 
   const fetchComments = async () => {
     // setComments(comments_data);
+
   };
   useEffect(() => {
     fetchComments();
