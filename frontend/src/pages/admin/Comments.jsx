@@ -12,7 +12,12 @@ const Comments = () => {
 
   const fetchComments = async () => {
     // setComments(comments_data);
-
+    try {
+      const { data } = await axios.get('/api/admin/comments');
+    data.success ? setComments(data.comments) : toast.error(data.message); 
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
   useEffect(() => {
     fetchComments();
