@@ -1,10 +1,34 @@
 import React from 'react'
 import { assets } from './../../assets/assets';
+import {useAppContext} from '../../context/AppContext.jsx';
 
 const BlogTableItem = ({ blog, fetchBlogs, index }) => {
 
   const { title, createdAt } = blog;
   const BlogDate = new Date(createdAt)
+
+  const { axios } = useAppContext();
+  
+  const deleteBlog = async () => { 
+    const confirm = window.confirm("Are you sure you want to delete this blog?");
+    if(!confirm) return;
+
+    try {
+      const { data } = await axios.post('/api/blog/delete', { id: blog._id });
+      if (data.success) {
+        toast.success(data.message);
+        await fetchBlogs();
+
+      } else {
+        toast.error(data.message);
+      }
+
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
+
+ 
 
   return (
     <tr className="border-y border-gray-300">
