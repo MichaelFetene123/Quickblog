@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { assets, blogCategories } from "./../../assets/assets";
 import Quill from "quill";
 import {useAppContext} from "../../context/AppContext.jsx";
+import { toast } from 'react-hot-toast';
 const AddBlog = () => {
 
   const { axios } = useAppContext();
@@ -24,10 +25,35 @@ const AddBlog = () => {
     try {
       e.preventDefault();
       setIsAdding(true);
-      
+      const blog = {
+        title,
+        subTitle,
+        description: quillRef.current.root.innerHTML,
+        category,
+        isPublished
+      }
+
+      const formData = new FormData();
+      formData.append('blog', JSON.stringify(blog));
+      formData.append("image", image);
+
+      const { data } = await axios.post('/api/blog/add', formData);
+      if(data.success) {
+        // Handle success
+        toast.success(data.message);
+        setImage(false);
+        setTitle("");
+        quillRef.current.root.innerHTML = "";
+        setCategory("startup");
+      } else {
+        toast.error(data.message);
+      }
     } catch (error) {
-      
+      toast.error(error.message);
+    }finally{
+      setIsAdding(false)
     }
+    
   };
   useEffect(() => {
     // Initiate Quill only once
