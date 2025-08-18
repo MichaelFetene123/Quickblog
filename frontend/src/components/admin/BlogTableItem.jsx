@@ -69,6 +69,7 @@ const BlogTableItem = ({ blog, fetchBlogs, index }) => {
           src={assets.cross_icon}
           className="w-8 hover:scale-110 transition-all cursor-pointer"
           alt=""
+          onClick={deleteBlog}
         />
       </td>
     </tr>
