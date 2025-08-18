@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { assets, dashboard_data } from "./../../assets/assets";
 import BlogTableItem from './../../components/admin/BlogTableItem';
+import { useAppContext } from "../../context/AppContext.jsx";
 
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState({
@@ -10,8 +11,11 @@ const Dashboard = () => {
     recentBlogs: [],
   });
 
+const { axios } = useAppContext();
+
   const fetchDashboard = async () => {
-    setDashboardData(dashboard_data);
+    // setDashboardData(dashboard_data);
+    
   };
 
   useEffect(() => {
