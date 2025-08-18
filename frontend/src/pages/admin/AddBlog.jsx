@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { assets, blogCategories } from "./../../assets/assets";
 import Quill from "quill";
-
+import {useAppContext} from "../../context/AppContext.jsx";
 const AddBlog = () => {
+
+  const { axios } = useAppContext();
+  const [isAdding, setIsAdding] = useState(false);
 
   const editorRef = useRef(null);
   const quillRef = useRef(null);
@@ -18,7 +21,13 @@ const AddBlog = () => {
   };
 
   const onSubmitHandler = async (e) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
+      setIsAdding(true);
+      
+    } catch (error) {
+      
+    }
   };
   useEffect(() => {
     // Initiate Quill only once
@@ -83,7 +92,11 @@ const AddBlog = () => {
         </div>
         {/* --------- */}
         <p className="mt-4">Blog Category</p>
-        <select onChange={(e) => setCategory(e.target.value)} name="category" className="mt-2 px-3 py-2 border text-gray-500 border-gray-300 outline-none rounded">
+        <select
+          onChange={(e) => setCategory(e.target.value)}
+          name="category"
+          className="mt-2 px-3 py-2 border text-gray-500 border-gray-300 outline-none rounded"
+        >
           <option value="">select category</option>
           {blogCategories.map((item, index) => (
             <option key={index} value={item}>
@@ -94,10 +107,21 @@ const AddBlog = () => {
 
         <div className=" flex gap-2 mt-4">
           <p>Publish Now</p>
-          <input type="checkbox" checked={isPublished} onChange={(e) => setIsPublished(e.target.checked)}  className="scale-125 cursor-pointer " />
-        </div> 
+          <input
+            type="checkbox"
+            checked={isPublished}
+            onChange={(e) => setIsPublished(e.target.checked)}
+            className="scale-125 cursor-pointer "
+          />
+        </div>
 
-        <button type="submit" className="mt-8 w-40 h-10 bg-primary text-white rounded  cursor-pointer text-sm hover:scale-105 transition-all"> Add Blog</button>
+        <button
+          disabled={isAdding}
+          type="submit"
+          className="mt-8 w-40 h-10 bg-primary text-white rounded  cursor-pointer text-sm hover:scale-105 transition-all"
+        >
+          {isAdding ? "Adding..." : "Add Blog"}
+        </button>
       </div>
     </form>
   );
