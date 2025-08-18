@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { comments_data } from "./../../assets/assets";
 import CommentTableItem from './../../components/admin/CommentTableItem';
+import { useAppContext } from "../../context/AppContext.jsx";
+
 const Comments = () => {
   const [comments, setComments] = useState([]);
   const [filter, setFilter] = useState("Not Approved");
 
+  const { axios } = useAppContext();
+
   const fetchComments = async () => {
-    setComments(comments_data);
+    // setComments(comments_data);
   };
   useEffect(() => {
     fetchComments();
