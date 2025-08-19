@@ -2,6 +2,7 @@ import React from 'react'
 import { assets } from './../../assets/assets';
 import { useAppContext } from '../../context/AppContext.jsx';
 import { toast } from 'react-hot-toast';
+import app from './../../../../backend/server';
 
 const CommentTableItem = ({ comment, fetchComments }) => {
 
@@ -62,7 +63,7 @@ const CommentTableItem = ({ comment, fetchComments }) => {
       <td className="px-6 py-4 max-sm:hidden">
         <div className="inline-flex items-center gap-4">
           {!comment.isApproved ? (
-            <img
+            <img onClick={approveComment}
               src={assets.tick_icon}
               className="w-5 hover:scale-110 transition-all cursor-pointer"
             />
