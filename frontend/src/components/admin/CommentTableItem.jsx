@@ -29,7 +29,7 @@ const CommentTableItem = ({ comment, fetchComments }) => {
     try {
       const confirm = window.confirm("Are you sure you want to delete this comment?");
       if (!confirm) return;
-      
+
       const { data } = await axios.post(`/api/admin/delete-comment`, {
         id: _id,
       });
@@ -71,7 +71,7 @@ const CommentTableItem = ({ comment, fetchComments }) => {
               Approved
             </p>
           )}
-          <img
+          <img onClick={deleteComment}
             src={assets.bin_icon}
             alt=""
             className="w-5 hover:scale-110 transition-all cursor-pointer"
