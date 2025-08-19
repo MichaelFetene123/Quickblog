@@ -2,12 +2,12 @@ import React from 'react'
 import { assets } from './../../assets/assets';
 import Sidebar from './../../components/admin/Sidebar';
 import { Outlet } from 'react-router-dom';
-import { axios } from 'axios';
 import { useAppContext } from '../../context/AppContext.jsx';
 
 const Layout = () => {
 
-const {axios, setToken ,navigate} = useAppContext();
+  const { axios, setToken, navigate } = useAppContext();
+  
   const logout = () => {
     localStorage.removeItem("token");
     axios.defaults.headers.common['Authorization'] = null;
