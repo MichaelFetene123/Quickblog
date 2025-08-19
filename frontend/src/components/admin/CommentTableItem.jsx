@@ -2,7 +2,6 @@ import React from 'react'
 import { assets } from './../../assets/assets';
 import { useAppContext } from '../../context/AppContext.jsx';
 import { toast } from 'react-hot-toast';
-import app from './../../../../backend/server';
 
 const CommentTableItem = ({ comment, fetchComments }) => {
 
@@ -13,7 +12,7 @@ const CommentTableItem = ({ comment, fetchComments }) => {
 
   const approveComment = async () => {
     try {
-      const { data } = await axios.post(`/api/admin/approve-comment`, { id:_id});
+      const { data } = await axios.post(`/api/admin/approve-comment`, { id });
       if (data.success) {
         toast.success(data.message);
         fetchComments();
@@ -32,7 +31,7 @@ const CommentTableItem = ({ comment, fetchComments }) => {
       if (!confirm) return;
 
       const { data } = await axios.post(`/api/admin/delete-comment`, {
-        id: _id,
+        id
       });
       if (data.success) {
         toast.success(data.message);
