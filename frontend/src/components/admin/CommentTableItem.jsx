@@ -1,15 +1,21 @@
 import React from 'react'
 import { assets } from './../../assets/assets';
+import { useAppContext } from '../../context/AppContext.jsx';
 
 const CommentTableItem = ({ comment, fetchComments }) => {
 
     const { blog, createdAt, _id: id,name,content} = comment;
     const BlogDate = new Date(createdAt);
+
+  const {axios} = useAppContext();
+  
   return (
     <tr className="order-y border-gray-300">
       <td className="px-6 py-4">
-        <b className="font-medium text-gray-600">Blog</b> :{blog.title}
-        <br />
+        
+         
+          <b className="font-medium text-gray-600 ">Blog</b> :{blog.title}
+    <br />
         <br />
         <b className="font-medium text-gray-600">Name</b> : {name}
         <br />
